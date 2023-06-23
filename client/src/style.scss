@@ -1,0 +1,52 @@
+$themes:(
+    light:(
+        textColor: black,
+        bg: white,
+        logo: black,
+        bgSoft: #f6f3f3,
+        textColorSoft: #555,
+        border: lightgrey,
+    ),
+    dark:(
+        textColor: rgb(0, 255, 140),
+        bg: #222,
+        logo: rgb(0, 255, 140),
+        bgSoft: #333,
+        textColorSoft: lightgray,
+        border: #444,
+    )
+);
+//Maps thru main div to access children in App.js
+@mixin themify ($themes) {
+    @each $theme, $map in $themes {
+        .theme-#{$theme} & {
+            $theme-map: () !global;
+            @each $key, $submap in $map {
+                $value: map-get(map-get($themes, $theme), '#{$key}');
+                $theme-map: map-merge(
+                    $theme-map,
+                    (
+                        $key: $value,
+                    )
+                )   !global;
+            }
+            @content;
+            $theme-map: null !global;
+        }
+    }
+}
+@function themed($key) {
+    @return map-get($theme-map, $key);
+}
+
+@mixin mobile {
+    @media (max-width: 480px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: 820px) {
+        @content;
+    }
+}
