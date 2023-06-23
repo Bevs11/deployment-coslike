@@ -29,7 +29,7 @@ const Profile = () => {
     // Fetch user data on first render and when username changes
     const fetchUser = async () => {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/users?username=${username}`
+        `${URL}/api/v1/users?username=${username}`
       );
       setUser(response.data);
     };
@@ -40,13 +40,13 @@ const Profile = () => {
     try {
       if (followed) {
         await axios.put(
-          `http://localhost:8080/api/v1/users/${user._id}/unfollow`,
+          `${URL}/api/v1/users/${user._id}/unfollow`,
           { userId: currentUser._id }
         );
         dispatch({ type: "UNFOLLOW", payload: user._id });
       } else {
         await axios.put(
-          `http://localhost:8080/api/v1/users/${user._id}/follow`,
+          `${URL}/api/v1/users/${user._id}/follow`,
           { userId: currentUser._id }
         );
         dispatch({ type: "FOLLOW", payload: user._id });
@@ -62,7 +62,7 @@ const Profile = () => {
     const getFollowings = async () => {
       try {
         const followingList = await axios.get(
-          `http://localhost:8080/api/v1/users/following/${user._id}`
+          `${URL}/api/v1/users/following/${user._id}`
         );
         setFollowings(followingList.data.followingList);
         console.log("follow:", followingList);
@@ -78,7 +78,7 @@ const Profile = () => {
     const getFollowers = async () => {
       try {
         const followerList = await axios.get(
-          `http://localhost:8080/api/v1/users/followers/${user._id}`
+          `${URL}/api/v1/users/followers/${user._id}`
         );
         setFollowers(followerList.data);
         //console.log(followerList.data)
