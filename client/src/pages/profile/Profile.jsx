@@ -9,9 +9,10 @@ import { useParams } from "react-router";
 import { AuthContext } from "../../context/authContext";
 
 const Profile = () => {
+  const URL = "https://coslike-backend.onrender.com";
   const [user, setUser] = useState({});
   const username = useParams().username;
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PF = "https://coslike-backend.onrender.com/images/";
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [followed, setFollowed] = useState(
     currentUser.following.includes(user?.id)

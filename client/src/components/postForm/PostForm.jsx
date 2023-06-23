@@ -9,6 +9,7 @@ import defaultAvatar from "../../assets/default/avatar.jpg";
 import axios from "axios";
 
 const PostForm = ({ addPost }) => {
+  const URL = "https://coslike-backend.onrender.com";
   const [post, setPost] = useState("");
   const { user } = useContext(AuthContext);
   const desc = useRef();
@@ -27,14 +28,14 @@ const PostForm = ({ addPost }) => {
       data.append("file", file);
       newPost.img = fileName;
       try {
-        await axios.post("http://localhost:8080/api/v1/upload", data);
+        await axios.post(`${URL}/api/v1/upload`, data);
       } catch (error) {
         console.log(error);
       }
     }
 
     try {
-      await axios.post("http://localhost:8080/api/v1/posts", newPost);
+      await axios.post(`${URL}/api/v1/posts`, newPost);
     } catch (error) {
       console.log(error);
     }
