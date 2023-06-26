@@ -65,7 +65,7 @@ const PostForm = ({ addPost }) => {
         </div>
         <hr />
         <div className="options">
-          <div className="item">
+          <div className="item-liveTV">
             <LiveTvIcon />
             Live video
           </div>
