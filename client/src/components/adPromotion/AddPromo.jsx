@@ -67,7 +67,7 @@ const AddPromo = () => {
 
   const [file, setFile] = useState(null);
   const [image, setImage] = useState(null);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(null);
 
   const clickHandler = (e) => {
     e.preventDefault();
@@ -76,17 +76,19 @@ const AddPromo = () => {
       desc: description,
       img: image,
     };
-    axios
-      .post(`${URL}/api/v1/promotions`, promoData)
-      .then(() => {
-        alert(
-          `Promo Posted | user: ${promoData.userId} | desc: ${description} `
-        );
-        navigate("/adpreview");
-      })
-      .catch((error) => {
-        console.log("error:", error);
-      });
+    if (description !== null && image !== null) {
+      axios
+        .post(`${URL}/api/v1/promotions`, promoData)
+        .then(() => {
+          alert(`Promo Successfully Posted`);
+          navigate("/adpreview");
+        })
+        .catch((error) => {
+          console.log("error:", error);
+        });
+    } else {
+      alert("Missing required fields");
+    }
   };
 
   const cancelHandler = (e) => {
@@ -111,7 +113,7 @@ const AddPromo = () => {
         <Typography sx={styles.text}>Create Promotion Post</Typography>
         <Box sx={styles.imgContainer}>
           {file ? (
-            <img src={image} />
+            <img src={image} style={{ maxWidth: "100%", maxHeight: "100%" }} />
           ) : (
             <AddPhotoAlternateIcon sx={styles.icon} />
           )}
@@ -129,7 +131,7 @@ const AddPromo = () => {
         </label>
         <TextField
           sx={styles.input}
-          name="description"
+          placeholder="description"
           multiline
           rows={4}
           onChange={(e) => {
