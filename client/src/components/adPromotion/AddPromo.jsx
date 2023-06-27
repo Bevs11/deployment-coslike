@@ -3,6 +3,9 @@ import { Button, Typography, TextField, Box, Grid } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { storage } from "../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 
 const AddPromo = () => {
   let styles = {
@@ -59,7 +62,9 @@ const AddPromo = () => {
 
   const [file, setFile] = useState(null);
   const [image, setImage] = useState(null);
+
   const navigate = useNavigate();
+
   const clickHandler = (e) => {
     e.preventDefault();
     navigate("/adpreview");
@@ -69,21 +74,15 @@ const AddPromo = () => {
     navigate("/home");
   };
 
-  const appendPhoto = async (e) => {
-    e.preventDefault();
-    if (file) {
-      const data = new FormData();
-      const fileName = Date.now() + file.name;
-      console.log("filename:", Date.now() + file.name);
-      data.append("name", fileName);
-      data.append("file", file);
-
-      try {
-        await axios.post(`${URL}/api/v1/upload`, data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
+  const uploadImage = () => {
+    if (file == null) return;
+    const fileName = `trialUpload/${file.name + v4()}`;
+    const imageRef = ref(storage, fileName);
+    uploadBytes(imageRef, file).then((item) => {
+      getDownloadURL(item.ref).then((url) => {
+        setImage(url);
+      });
+    });
   };
 
   return (
@@ -104,7 +103,7 @@ const AddPromo = () => {
           accept=".png,.jpeg,.jpg"
           onChange={(e) => setFile(e.target.files[0])}
         />
-        <button onClick={appendPhoto}>Upload</button>
+        <button onClick={uploadImage}>Upload</button>
         <TextField sx={styles.input} value="description" multiline rows={4} />
         <Box>
           <Button variant="outlined" sx={styles.button} onClick={cancelHandler}>
