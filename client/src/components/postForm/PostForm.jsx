@@ -106,7 +106,7 @@ const PostForm = ({ addPost }) => {
           }}
         >
           {image && (
-            <img src={image} style={{ maxWidth: "100%", maxHeight: "100%" }} />
+            <img src={image} style={{ maxWidth: "100%", maxHeight: "500px" }} />
           )}
         </div>
         <hr />
