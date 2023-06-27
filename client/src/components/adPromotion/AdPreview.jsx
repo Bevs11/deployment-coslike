@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useNavigate } from "react-router-dom";
+import Promotion from "./Promotion";
 
 const AdPreview = () => {
   let styles = {
@@ -86,44 +87,7 @@ const AdPreview = () => {
         </Box>
         <Box>
           <Box sx={styles.previewContainer}>
-            <Box sx={styles.adHeader}>
-              <Box sx={styles.headerLeft}>
-                <AccountCircleIcon style={{ fontSize: "3rem", margin: 0 }} />
-                <Box style={{ marginLeft: "0.5rem" }}>
-                  <Typography style={{ fontWeight: "bold" }}>
-                    Merchant Name
-                  </Typography>
-                  <Typography>Sponsored</Typography>
-                </Box>
-              </Box>
-              <Button
-                style={{ fontSize: "small", marginRight: "0.5rem" }}
-                variant="contained"
-              >
-                Visit Page
-              </Button>
-            </Box>
-            <Grid item sx={styles.imageContainer}>
-              <Box sx={styles.image}>image</Box>
-            </Grid>
-            <Grid item sx={styles.infoContainer}>
-              <Box style={{ marginTop: "1rem" }}>
-                <Typography style={{ margin: "0 0.5rem" }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud
-                </Typography>
-                <Typography
-                  style={{
-                    fontWeight: "bold",
-                    margin: "0 0.5rem",
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  #tag #tag #tag
-                </Typography>
-              </Box>
-            </Grid>
+            <Promotion />
           </Box>
           <Box sx={styles.approvalContainer}>
             <Typography style={{ fontSize: "25px" }}>Is this ok?</Typography>

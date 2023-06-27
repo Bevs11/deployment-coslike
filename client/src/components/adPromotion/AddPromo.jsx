@@ -79,7 +79,9 @@ const AddPromo = () => {
     axios
       .post(`${URL}/api/v1/promotions`, promoData)
       .then(() => {
-        alert("Promo Posted");
+        alert(
+          `Promo Posted | user: ${promoData.userId} | desc: ${description} `
+        );
         navigate("/adpreview");
       })
       .catch((error) => {
@@ -122,9 +124,12 @@ const AddPromo = () => {
           onChange={(e) => setFile(e.target.files[0])}
         />
         <button onClick={uploadImage}>Upload</button>
+        <label style={{ margin: "1rem 0", fontWeight: "bold" }}>
+          Description
+        </label>
         <TextField
           sx={styles.input}
-          value="description"
+          name="description"
           multiline
           rows={4}
           onChange={(e) => {
