@@ -99,8 +99,15 @@ const PostForm = ({ addPost }) => {
             <button type="submit">Post</button>
           </form>
         </div>
-        <div style={{ textAlign: "center", margin: "1rem 0" }}>
-          {image && <img src={image} />}
+        <div
+          style={{
+            textAlign: "center",
+            margin: "1rem 0",
+          }}
+        >
+          {image && (
+            <img src={image} style={{ maxWidth: "100%", maxHeight: "100%" }} />
+          )}
         </div>
         <hr />
         <div className="options">
