@@ -12,7 +12,7 @@ const AdPreview = () => {
     container: {
       display: "flex",
       justifyContent: "center",
-      height: "90vh",
+      minHeight: "90vh",
     },
     content: {
       width: "90%",
