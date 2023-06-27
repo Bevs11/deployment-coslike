@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Typography, TextField, Box, Grid } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import axios from "axios";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
+import { AuthContext } from "../../context/authContext";
 
 const AddPromo = () => {
   let styles = {
@@ -60,15 +61,32 @@ const AddPromo = () => {
     },
   };
 
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const URL = "https://coslike-backend.onrender.com";
+
   const [file, setFile] = useState(null);
   const [image, setImage] = useState(null);
-
-  const navigate = useNavigate();
+  const [description, setDescription] = useState("");
 
   const clickHandler = (e) => {
     e.preventDefault();
-    navigate("/adpreview");
+    const promoData = {
+      userId: user._id,
+      desc: description,
+      img: image,
+    };
+    axios
+      .post(`${URL}/api/v1/promotions`, promoData)
+      .then(() => {
+        alert("Promo Posted");
+        navigate("/adpreview");
+      })
+      .catch((error) => {
+        console.log("error:", error);
+      });
   };
+
   const cancelHandler = (e) => {
     e.preventDefault();
     navigate("/home");
@@ -104,7 +122,15 @@ const AddPromo = () => {
           onChange={(e) => setFile(e.target.files[0])}
         />
         <button onClick={uploadImage}>Upload</button>
-        <TextField sx={styles.input} value="description" multiline rows={4} />
+        <TextField
+          sx={styles.input}
+          value="description"
+          multiline
+          rows={4}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+        />
         <Box>
           <Button variant="outlined" sx={styles.button} onClick={cancelHandler}>
             Cancel
