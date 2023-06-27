@@ -11,9 +11,9 @@ const initialPost = {
   likes: ["6461bf3e6f1deca292fd2fb8"],
 };
 const initialMerchant = {
-  username: "Doogy Doo",
+  username: "",
   profilePicture:
-    "https://th.bing.com/th/id/OIP.0MgUU2M1C8f8vQUKG_Y47QHaEi?pid=ImgDet&rs=1",
+    "https://th.bing.com/th/id/R.36c755049231a066e1f41dea9b1ca038?rik=6Svf43GgBaFxqQ&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f04%2fGrey-backgrounds-free-download.jpg&ehk=rqHUZt4Pu3oi1y%2f32QPcFUelNSOXwhzBHZGTubXhXWU%3d&risl=&pid=ImgRaw&r=0",
 };
 const Promotion = () => {
   const [post, setPost] = useState(initialPost);

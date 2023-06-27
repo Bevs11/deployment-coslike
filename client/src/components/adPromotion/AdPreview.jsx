@@ -33,27 +33,6 @@ const AdPreview = () => {
       width: "100%",
       borderRadius: "10px",
     },
-    adHeader: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      width: "100%",
-      marginTop: "0.5rem",
-    },
-    headerLeft: {
-      display: "flex",
-      marginLeft: "0.5rem",
-      alignItems: "center",
-    },
-    imageContainer: {
-      marginTop: "0.5rem",
-    },
-    image: {
-      backgroundColor: "#c3cfd9",
-      width: "100%",
-      height: "30vh",
-    },
-    infoContainer: {},
     approvalContainer: {
       display: "flex",
       flexDirection: "column",

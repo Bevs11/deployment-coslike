@@ -136,7 +136,7 @@ const Post = ({ post }) => {
         </div>
         <div className="content">
           <p>{post.desc}</p>
-          {post.img && <img src={PF + post.img} alt="An uploaded img" />}
+          {post.img && <img src={post.img} alt="An uploaded img" />}
         </div>
         <div className="info">
           <div className="item" onClick={likeHandler}>
