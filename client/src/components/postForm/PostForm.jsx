@@ -65,7 +65,7 @@ const PostForm = ({ addPost }) => {
         </div>
         <hr />
         <div className="options">
-          <div className="item">
+          <div className="item-nonClick">
             <LiveTvIcon />
             Live video
           </div>
@@ -80,7 +80,7 @@ const PostForm = ({ addPost }) => {
               onChange={(e) => setFile(e.target.files[0])}
             />
           </label>
-          <div className="item">
+          <div className="item-nonClick">
             <MoodIcon />
             Mood
           </div>

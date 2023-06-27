@@ -64,6 +64,12 @@
                 cursor: pointer;
                 font-size: 14px;
             }
+            .item-nonClick{
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                font-size: 14px;
+            }
         }
     }
 }

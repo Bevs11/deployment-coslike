@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Typography, TextField, Box, Grid } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { storage } from "../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
+import { AuthContext } from "../../context/authContext";
 
 const AddPromo = () => {
   let styles = {
@@ -13,7 +18,7 @@ const AddPromo = () => {
       borderRadius: "5px",
       border: "1px solid rgb(211, 211, 211)",
       margin: "5px",
-      height: "90vh",
+      minHeighteight: "90vh",
       width: "100%",
     },
     content: {
@@ -34,7 +39,7 @@ const AddPromo = () => {
       maxWidth: "600px",
       height: "300px",
       backgroundColor: "rgb(211, 211, 211)",
-      margin: "1.5rem 0",
+      margin: "1.5rem 0 1rem 0",
       borderRadius: "5px",
     },
     icon: {
@@ -56,14 +61,48 @@ const AddPromo = () => {
     },
   };
 
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const URL = "https://coslike-backend.onrender.com";
+
+  const [file, setFile] = useState(null);
+  const [image, setImage] = useState(null);
+  const [description, setDescription] = useState("");
+
   const clickHandler = (e) => {
     e.preventDefault();
-    navigate("/adpreview");
+    const promoData = {
+      userId: user._id,
+      desc: description,
+      img: image,
+    };
+    axios
+      .post(`${URL}/api/v1/promotions`, promoData)
+      .then(() => {
+        alert(
+          `Promo Posted | user: ${promoData.userId} | desc: ${description} `
+        );
+        navigate("/adpreview");
+      })
+      .catch((error) => {
+        console.log("error:", error);
+      });
   };
+
   const cancelHandler = (e) => {
     e.preventDefault();
     navigate("/home");
+  };
+
+  const uploadImage = () => {
+    if (file == null) return;
+    const fileName = `trialUpload/${file.name + v4()}`;
+    const imageRef = ref(storage, fileName);
+    uploadBytes(imageRef, file).then((item) => {
+      getDownloadURL(item.ref).then((url) => {
+        setImage(url);
+      });
+    });
   };
 
   return (
@@ -71,9 +110,32 @@ const AddPromo = () => {
       <Box sx={styles.content}>
         <Typography sx={styles.text}>Create Promotion Post</Typography>
         <Box sx={styles.imgContainer}>
-          <AddPhotoAlternateIcon sx={styles.icon} />
+          {file ? (
+            <img src={image} />
+          ) : (
+            <AddPhotoAlternateIcon sx={styles.icon} />
+          )}
         </Box>
-        <TextField sx={styles.input} value="description" multiline rows={4} />
+        <input
+          style={{ marginBottom: "1rem" }}
+          type="file"
+          id="file"
+          accept=".png,.jpeg,.jpg"
+          onChange={(e) => setFile(e.target.files[0])}
+        />
+        <button onClick={uploadImage}>Upload</button>
+        <label style={{ margin: "1rem 0", fontWeight: "bold" }}>
+          Description
+        </label>
+        <TextField
+          sx={styles.input}
+          name="description"
+          multiline
+          rows={4}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+        />
         <Box>
           <Button variant="outlined" sx={styles.button} onClick={cancelHandler}>
             Cancel

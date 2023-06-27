@@ -4,6 +4,7 @@ import "./feed.scss";
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/authContext";
+import Promotion from "../../components/adPromotion/Promotion.jsx";
 
 const Feed = ({ username }) => {
   const URL = "https://coslike-backend.onrender.com";
@@ -26,6 +27,7 @@ const Feed = ({ username }) => {
   return (
     <div className="feed">
       <PostForm />
+      <Promotion />
       {Array.isArray(posts) && posts.map((p) => <Post key={p._id} post={p} />)}
     </div>
   );
