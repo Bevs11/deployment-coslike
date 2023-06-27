@@ -43,7 +43,7 @@ const Post = ({ post }) => {
         setLike(response.data.likes.length);
         setLikeActive(response.data.likes.includes(currentUser._id));
       } catch (error) {
-        console.log(error);
+        console.log("error:", error);
       }
     };
 

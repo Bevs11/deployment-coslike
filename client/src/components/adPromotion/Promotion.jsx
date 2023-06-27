@@ -7,7 +7,7 @@ import "./promotionStyle.scss";
 const initialPost = {
   userId: "6461bf3e6f1deca292fd2fb8",
   desc: "SALE! SALE! SALE!",
-  img: "https://topflite.co.nz/wp-content/uploads/2019/09/Of-course-dogs-smile.jpg",
+  img: "https://th.bing.com/th/id/R.31ba7cc779eb847b2231c27ba7b2be40?rik=21iI%2biCnLzKSsQ&riu=http%3a%2f%2fwww.solidbackgrounds.com%2fimages%2f2560x1440%2f2560x1440-davys-grey-solid-color-background.jpg&ehk=fM5DszD01DvzSYshQkSdC25KEOswWGn%2fJrfKHGz%2b6LU%3d&risl=&pid=ImgRaw&r=0",
   likes: ["6461bf3e6f1deca292fd2fb8"],
 };
 const initialMerchant = {
