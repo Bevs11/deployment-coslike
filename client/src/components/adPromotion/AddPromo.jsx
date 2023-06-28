@@ -80,7 +80,6 @@ const AddPromo = () => {
       axios
         .post(`${URL}/api/v1/promotions`, promoData)
         .then(() => {
-          alert(`Promo Successfully Posted`);
           navigate("/adpreview");
         })
         .catch((error) => {

@@ -49,6 +49,7 @@ const PostForm = ({ addPost }) => {
         .post(`${URL}/api/v1/posts`, newPost)
         .then(() => {
           alert("Post successfully added");
+          window.location.reload();
         })
         .catch((error) => {
           console.log("error:", error);
